@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class PartyBooking {
+    private static String[] partyPackages = {"Bronze", "Silver", "Gold"};
+    private static double[] packagePrices = {500, 1000, 1500};
+    private static int[] maxCapacity = {50, 100, 150};
+    private static String[] partyAddOns = {"Catering", "Decorations", "Entertainment"};
+    private static double[] addOnPrices = {200, 300, 400};
+    private static double totalPrice;
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to the Party Booking!");
+        System.out.println("Select a party package:");
+        for (int i = 0; i < partyPackages.length; i++) {
+            System.out.println((i + 1) + ". " + partyPackages[i] + " - $" + packagePrices[i] + " (Max capacity: " + maxCapacity[i] + ")");
+        }
+        int packageChoice = input.nextInt();
+        totalPrice += packagePrices[packageChoice - 1];
+        System.out.println("Enter the number of guests:");
+        int numOfGuests = input.nextInt();
+        if (numOfGuests > maxCapacity[packageChoice - 1]) {
+            System.out.println("Error: Number of guests exceeds package capacity.");
+            return;
+        }
+        input.nextLine(); // Clear the buffer
+        System.out.println("Enter the party date (dd/mm/yyyy):");
+        String partyDate = input.nextLine();
+        System.out.println("Enter the party time (hh:mm):");
+        String partyTime = input.nextLine();
+        System.out.println("Select party add-ons (Enter 0 for none):");
+        for (int i = 0; i < partyAddOns.length; i++) {
+            System.out.println((i + 1) + ". " + partyAddOns[i] + " - $" + addOnPrices[i]);
+        }
+        int addOnChoice = input.nextInt();
+        while (addOnChoice != 0) {
+            totalPrice += addOnPrices[addOnChoice - 1];
+            System.out.println("Select additional add-ons (Enter 0 for none):");
+            addOnChoice = input.nextInt();
+        }
+        System.out.println("Enter your name:");
+        String name = input.nextLine();
+        input.nextLine();
+        System.out.println("Enter your contact number:");
+        String contactNumber = input.nextLine();
+        System.out.println("Enter your email:");
+        String email = input.nextLine();
+        System.out.println("Booking confirmed! Total cost: $" + totalPrice);
+        System.out.println("A confirmation email will be sent to " + email);
+    }
+}
